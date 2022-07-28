@@ -30,9 +30,10 @@ export default class NewClass extends cc.Component {
         if (selfCollider.tag === 1 && otherCollider.tag === 0 && !selfCollider.isHit) {
             selfCollider.isHit = true;
 
-            this.node.getChildByName("coin_box").active = false
-            this.node.getChildByName("coin").active = true;
-            cc.tween(this.node.getChildByName("coin")).by(0.2, {y:100}).start();
+            this.node.active = false;
+
+            // this.node.getChildByName("coin").active = true;
+            // cc.tween(this.node.getChildByName("coin")).by(0.2, {y:150}).start();
             cc.log("va cham box")
 
             // cc.tween(this.node.children[0]).by(0.2, {y:100}).start();

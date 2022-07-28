@@ -50,7 +50,7 @@ export default class Player extends cc.Component {
         this.Direction = 0;
         this.Velocity_Max_X = 400;
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
-        this.Walk_Force = 20000;
+        this.Walk_Force = 80000;
         this.Jump_Force = 450000;
         this.On_the_Ground = false;
         this.count = 0
@@ -100,14 +100,15 @@ export default class Player extends cc.Component {
                     this.playSound(SOUND.JUMP1, false)
                 }
                 this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true)
-                &&  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true) 
+                &&  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true)
                 ||  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
                 this.count = this.count + 1;
                 cc.log("Up");
             }
         }, this);
         this.Up.node.on(cc.Node.EventType.TOUCH_END, function(touch, event) {
-            this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+            this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
+            
             this.Direction = 0;
         }, this);
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +125,7 @@ export default class Player extends cc.Component {
  
     onBeginContact(contact, selfCollider, otherCollider) {
         if(selfCollider.tag === 1) {
+            // this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
             this.count = 0;
         }
     }
@@ -176,11 +178,11 @@ export default class Player extends cc.Component {
  
             case cc.macro.KEY.up:
                 cc.log("W")
-                if(this.On_the_Ground){
-                    
-                        this.Rigid_Body.applyForceToCenter( cc.v2(0,this.Jump_Force) , true );
-                        this.On_the_Ground = false;
+                if(this.count < 2){
+                    this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true)
                     this.node.getComponent(sp.Skeleton).setAnimation(0, "jump1", true);
+                    this.count = this.count + 1;
+                
                     // this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true);
                     // this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
                     cc.log("w")
