@@ -34,21 +34,31 @@ export default class NewClass extends cc.Component {
  
  
     onBeginContact(contact,selfCollider,other) {
-        if(other.node.name == "Player" && selfCollider.tag === 1){
-            cc.log("va cham")
-            this.node.scale = 0;
-            if(contact.getWorldManifold().normal.y==-1 && contact.getWorldManifold().normal.x==0){
-                // if(this.animState.name == "question_block") {
-                    
-                //     this.playNull();
-                    // this.coin_effect.playCoinEffect();
-                    // this.coin.playCoin();
-                    // this.score_100.playScore100();
-                // }
+        if(other.node.name == "Player"){
+            cc.tween(this.node).repeat(1,
+                cc.tween(this.node)
+                    .to(2, {scale: 1.5},{easing: "fade"}).delay(2)
+                    .to(1, {scale: 0})
+                    .to(0.1, {position: this.node.position})
+                    .start()
+                ).call(()=>{
+                    this.node.active = false;
+                    cc.log("Cau bien mat")
+            }).start();
                 
-            }/* else if(contact.getWorldManifold().normal.y==1 && contact.getWorldManifold().normal.x==0) {
-                other.node.getComponent('Mario').onGround = true;
-            }*/
+            // this.node.scale = 0;
+    //         if(contact.getWorldManifold().normal.y==-1 && contact.getWorldManifold().normal.x==0){
+    //             // if(this.animState.name == "question_block") {
+                    
+    //             //     this.playNull();
+    //                 // this.coin_effect.playCoinEffect();
+    //                 // this.coin.playCoin();
+    //                 // this.score_100.playScore100();
+    //             // }
+                
+    //         }/* else if(contact.getWorldManifold().normal.y==1 && contact.getWorldManifold().normal.x==0) {
+    //             other.node.getComponent('Mario').onGround = true;
+    //         }*/
         }
     }
  

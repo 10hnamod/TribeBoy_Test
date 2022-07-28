@@ -25,8 +25,6 @@ export default class Player extends cc.Component {
     sounds: cc.AudioClip[] = [];
  
     
-
-    public DoubleJump: boolean = false;
     public bloodBar: number = 0;
     
     public static ins: Player;
@@ -38,6 +36,9 @@ export default class Player extends cc.Component {
     Walk_Force: number;
     Jump_Force: number;
     On_the_Ground: any;
+    Velocity_Max_Y: number;
+
+    count: number
  
     playSound(soundId: number, loop: boolean = false, delay: number = 0){
         this.scheduleOnce(()=>{
@@ -50,8 +51,9 @@ export default class Player extends cc.Component {
         this.Velocity_Max_X = 400;
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
         this.Walk_Force = 20000;
-        this.Jump_Force = 1200000;
+        this.Jump_Force = 450000;
         this.On_the_Ground = false;
+        this.count = 0
 
         Player.ins = this;
 
@@ -93,14 +95,20 @@ export default class Player extends cc.Component {
         }, this);
 /////////////////////////////////////////////////////////////////////////////////////////////
         this.Up.node.on(cc.Node.EventType.TOUCH_START, function(touch, event) {
-            if (this.DoubleJump) {
+            if (this.count < 2) {
                 if (window.playsound = true) {
                     this.playSound(SOUND.JUMP1, false)
                 }
-                this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true);
-                this.On_the_Ground = false;
+                this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true)
+                &&  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true) 
+                ||  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
+                this.count = this.count + 1;
                 cc.log("Up");
             }
+        }, this);
+        this.Up.node.on(cc.Node.EventType.TOUCH_END, function(touch, event) {
+            this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+            this.Direction = 0;
         }, this);
 //////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -115,8 +123,8 @@ export default class Player extends cc.Component {
     }
  
     onBeginContact(contact, selfCollider, otherCollider) {
-        if(selfCollider.tag === 2) {
-            this.On_the_Ground = true;
+        if(selfCollider.tag === 1) {
+            this.count = 0;
         }
     }
  
