@@ -1,11 +1,11 @@
 import GameManager from "./Game_Manager";
+import Cau from "./cauvo";
+import Enemy from "./Enemy";
 // import Star from "./Star";
 // import Boss from "./Boss";
 enum SOUND {
     JUMP1,
-    JUMP2,
-    JUMP3,
-    FINISH
+    LAND
 }
 const {ccclass, property} = cc._decorator;
  
@@ -35,6 +35,7 @@ export default class Player extends cc.Component {
     Rigid_Body: cc.RigidBody;
     Walk_Force: number;
     Jump_Force: number;
+    Jump_Force1: number;
     On_the_Ground: any;
     Velocity_Max_Y: number;
 
@@ -48,10 +49,11 @@ export default class Player extends cc.Component {
  
     onLoad () {
         this.Direction = 0;
-        this.Velocity_Max_X = 400;
+        this.Velocity_Max_X = 1000;
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
-        this.Walk_Force = 80000;
-        this.Jump_Force = 450000;
+        this.Walk_Force = 9000;
+        this.Jump_Force = 30000;
+        this.Jump_Force1 = 20000;
         this.On_the_Ground = false;
         this.count = 0
 
@@ -73,7 +75,7 @@ export default class Player extends cc.Component {
         this.Left.node.on(cc.Node.EventType.TOUCH_START, function(touch, event) {
             this.node.getComponent(sp.Skeleton).setAnimation(0, "run", true);
             this.Direction = -1;
-            this.node.scaleX = -0.35
+            this.node.scaleX = -0.45;
             cc.log("Left")
         }, this);
  
@@ -85,7 +87,7 @@ export default class Player extends cc.Component {
         this.Right.node.on(cc.Node.EventType.TOUCH_START, function(touch, event) {
             this.node.getComponent(sp.Skeleton).setAnimation(0, "run", true);
             this.Direction = 1;
-            this.node.scaleX = 0.35;
+            this.node.scaleX = 0.45;
             cc.log("Right");
         }, this);
  
@@ -95,21 +97,37 @@ export default class Player extends cc.Component {
         }, this);
 /////////////////////////////////////////////////////////////////////////////////////////////
         this.Up.node.on(cc.Node.EventType.TOUCH_START, function(touch, event) {
-            if (this.count < 2) {
+            if (this.count === 0) {
                 if (window.playsound = true) {
                     this.playSound(SOUND.JUMP1, false)
                 }
                 this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true)
-                &&  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true)
-                ||  this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
+                this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true)
+               
                 this.count = this.count + 1;
-                cc.log("Up");
+                cc.log("nhay 1");
+            }else if(this.count === 1){
+                if (window.playsound = true) {
+                    this.playSound(SOUND.JUMP1, false)
+                }
+                this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force1), true)
+                this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
+                this.count = this.count + 1;
+                cc.log("Nhay 2");
             }
         }, this);
+        // this.Up.node.on(cc.Node.EventType.TOUCH_CANCEL, function(touch, event) {
+        //     this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
+        
+        //     this.Direction = 0;
+        //     cc.log("Tha ra")
+        // }, this);
+        
         this.Up.node.on(cc.Node.EventType.TOUCH_END, function(touch, event) {
             this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
             
             this.Direction = 0;
+            cc.log("Ket thuc")
         }, this);
 //////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -125,10 +143,17 @@ export default class Player extends cc.Component {
  
     onBeginContact(contact, selfCollider, otherCollider) {
         if(selfCollider.tag === 1) {
-            // this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+            if(this.count == 2 || this.count == 1 ){
+                this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+                if (window.playsound = true) {
+                    this.playSound(SOUND.LAND, false)
+                }
+                cc.log("dung");
+            }
             this.count = 0;
         }
     }
+
  
     // onCollisionEnter (other, self) {
     //     if (other.node.name === "finish") {

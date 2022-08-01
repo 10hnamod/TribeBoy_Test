@@ -1,0 +1,83 @@
+
+bug.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body_1
+  rotate: false
+  xy: 2, 158
+  size: 293, 349
+  orig: 295, 351
+  offset: 1, 1
+  index: -1
+body_2
+  rotate: false
+  xy: 297, 232
+  size: 227, 275
+  orig: 229, 277
+  offset: 1, 1
+  index: -1
+body_3
+  rotate: false
+  xy: 526, 296
+  size: 192, 211
+  orig: 194, 213
+  offset: 1, 1
+  index: -1
+eye_1
+  rotate: true
+  xy: 360, 2
+  size: 158, 179
+  orig: 160, 181
+  offset: 1, 1
+  index: -1
+eye_die
+  rotate: true
+  xy: 109, 53
+  size: 103, 87
+  orig: 105, 89
+  offset: 1, 1
+  index: -1
+eyelid
+  rotate: true
+  xy: 2, 4
+  size: 152, 105
+  orig: 154, 107
+  offset: 1, 1
+  index: -1
+iris
+  rotate: false
+  xy: 297, 162
+  size: 62, 68
+  orig: 64, 70
+  offset: 1, 1
+  index: -1
+leg_1
+  rotate: true
+  xy: 279, 53
+  size: 103, 79
+  orig: 105, 81
+  offset: 1, 1
+  index: -1
+leg_2
+  rotate: true
+  xy: 526, 191
+  size: 103, 79
+  orig: 105, 81
+  offset: 1, 1
+  index: -1
+leg_3
+  rotate: true
+  xy: 541, 86
+  size: 103, 79
+  orig: 105, 81
+  offset: 1, 1
+  index: -1
+leg_4
+  rotate: true
+  xy: 198, 43
+  size: 113, 79
+  orig: 115, 81
+  offset: 1, 1
+  index: -1

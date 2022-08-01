@@ -1,3 +1,5 @@
+import Player from "./Player";
+import GameManager from "./Game_Manager";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -6,45 +8,66 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
+
+enum SOUND {
+    cauVo,
+    cauVo1,
+}
  
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Cau extends cc.Component {
  
-    private anim: cc.Animation = null;
-    private animState: cc.AnimationState = null;
- 
-    // @property(Q_Block_Coin_Effect)
-    // coin_effect: Q_Block_Coin_Effect = null;
- 
-    // @property(Q_Block_Coin)
-    // coin: Q_Block_Coin = null;
- 
-    // @property(Score_100)
-    // score_100: Score_100 = null;
+    @property(cc.AudioClip)
+    sounds: cc.AudioClip[] = [];
+
+    public static ins: Cau;
  
     onLoad () {
-        cc.director.getPhysicsManager().enabled = true;
+        
+        let physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
+ 
+        let collisionManager = cc.director.getCollisionManager();
+        collisionManager.enabled = true;
+
+        Cau.ins = this;
  
     }
- 
-    start () {
-        this.anim = this.getComponent(cc.Animation);
+    playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {
+        if (window.playsound){
+            this.scheduleOnce(() => {
+                cc.audioEngine.playEffect(this.sounds[soundId], false);
+            }, delay);
+        }
     }
+
  
  
-    onBeginContact(contact,selfCollider,other) {
-        if(other.node.name == "Player"){
-            cc.tween(this.node).repeat(2,
-                cc.tween(this.node)
-                    .to(2, {scale: 1.5},{easing: "fade"}).delay(2)
-                    .to(1, {scale: 0},{easing: "fade"})
-                    .to(0.1, {position: this.node.position})
-                    // .call(()=> )
-                    .start()
-             ).start()
-             
-                
-            
+    onCollisionEnter (other, self) {
+        cc.log(self.tag)
+        
+        if (self.tag === 2) {
+            cc.log("Cau")
+            if (window.playsound = true) {
+                this.playSound(SOUND.cauVo, false)
+            }
+            GameManager.ins.intcauBum(self.node);
+ 
+            // cc.tween(self.node)
+            // .to(2, {scale: 1.5}, {easing: "fade"})
+            // .to(2, {scale: 0}, {easing: "fade"})
+            // .start();
+
+            this.scheduleOnce(() => {
+                if (window.playsound = true) {
+                    this.scheduleOnce(() => {
+                        cc.log("Chay vao am thanh")
+                        this.playSound(SOUND.cauVo, false);
+                    });
+                    cc.log("chay vao if")
+                    self.node.active = false;
+                }
+            }, 2)
         }
     }
 }

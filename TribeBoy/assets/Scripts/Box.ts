@@ -1,3 +1,5 @@
+import Player from "./Player";
+import GameManager from "./Game_Manager";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -8,45 +10,28 @@
 const {ccclass, property} = cc._decorator;
  
 enum SOUND {
-    coinCollect,
+    coinUp,
 }
  
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Box extends cc.Component {
  
     @property(cc.AudioClip)
     sounds: cc.AudioClip[] = [];
  
     isHit: boolean = false;
 
+    public static ins: Box;
+
  
     // LIFE-CYCLE CALLBACKS:
  
     onLoad () {
+        cc.director.getPhysicsManager().enabled = true;
+        cc.director.getCollisionManager().enabled = true;
+        Box.ins = this;
  
     }
- 
-    onBeginContact(contact, selfCollider, otherCollider) {
-        if (selfCollider.tag === 1 && otherCollider.tag === 0 && !selfCollider.isHit) {
-            selfCollider.isHit = true;
-
-            this.node.active = false;
-
-            // this.node.getChildByName("coin").active = true;
-            // cc.tween(this.node.getChildByName("coin")).by(0.2, {y:150}).start();
-            cc.log("va cham box")
-
-            // cc.tween(this.node.children[0]).by(0.2, {y:100}).start();
-            // .call(() => this.node.getChildByName("coin_box").destroy()).start();
-            //cc.audioEngine.playEffect(this.coinCollect, false);
-            this.playSound(SOUND.coinCollect, false, 0)
-        }
-    }
- 
-    start () {
- 
-    }
- 
     playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {
         if (window.playsound){
             this.scheduleOnce(() => {
@@ -55,7 +40,24 @@ export default class NewClass extends cc.Component {
         }
     }
  
+    onBeginContact(contact, selfCollider, otherCollider) {
+        if (selfCollider.tag === 1 && otherCollider.tag === 3 && !selfCollider.isHit) {
+            selfCollider.isHit = true;
+            
+            
+            cc.tween(this.node).by(0.1, {y: 20}).by(0.1, {y: -20}).start();
+            this.scheduleOnce(() => {
+                this.node.active = false;
+            }, 0.2)
+
+            if (window.playsound = true) {
+                this.playSound(SOUND.coinUp, false)
+            }
+        }
+    }
  
+    start () {
+ 
+    }
     // update (dt) {}
 }
- 

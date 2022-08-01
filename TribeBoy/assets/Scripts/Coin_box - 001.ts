@@ -1,3 +1,5 @@
+import Player from "./Player";
+import GameManager from "./Game_Manager";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -8,7 +10,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class coinBox extends cc.Component {
 
    
    private Self: boolean = true;
@@ -20,7 +22,7 @@ export default class NewClass extends cc.Component {
 
     }
 
-   update (dt) {
+    update (dt) {
         if(this.node.getChildByName("coin_box").active === false && this.Self === true){
             this.node.getChildByName("coin").active = true;
             this.Self = false;
@@ -29,7 +31,6 @@ export default class NewClass extends cc.Component {
  
             // cc.tween(this.node.children[0]).by(0.2, {y:100}).start();
             // .call(() => this.node.getChildByName("coin_box").destroy()).start();
-        }
-        
+        } 
    }
 }
