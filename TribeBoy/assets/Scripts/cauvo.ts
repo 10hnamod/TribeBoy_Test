@@ -59,14 +59,9 @@ export default class Cau extends cc.Component {
             // .start();
 
             this.scheduleOnce(() => {
-                if (window.playsound = true) {
-                    this.scheduleOnce(() => {
-                        cc.log("Chay vao am thanh")
-                        this.playSound(SOUND.cauVo, false);
-                    });
-                    cc.log("chay vao if")
-                    self.node.active = false;
-                }
+                this.playSound(SOUND.cauVo1, false);
+                cc.log("chay vao if")
+                self.node.active = false;
             }, 2)
         }
     }

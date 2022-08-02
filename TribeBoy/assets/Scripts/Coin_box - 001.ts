@@ -26,7 +26,7 @@ export default class coinBox extends cc.Component {
         if(this.node.getChildByName("coin_box").active === false && this.Self === true){
             this.node.getChildByName("coin").active = true;
             this.Self = false;
-            cc.tween(this.node.getChildByName("coin")).by(0.2, {y:150}).start();
+            cc.tween(this.node.getChildByName("coin")).by(0.2, {x:10, y:150}).start();
             cc.log("va cham box")
  
             // cc.tween(this.node.children[0]).by(0.2, {y:100}).start();

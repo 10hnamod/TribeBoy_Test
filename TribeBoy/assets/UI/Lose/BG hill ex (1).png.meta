@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "a20ff350-b939-4d69-bd33-c9fe18e49351",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1924,
+  "height": 1080,
+  "platformSettings": {},
+  "subMetas": {
+    "BG hill ex (1)": {
+      "ver": "1.0.4",
+      "uuid": "db07b2f8-634f-4403-87ab-01db9e72070c",
+      "rawTextureUuid": "a20ff350-b939-4d69-bd33-c9fe18e49351",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1924,
+      "height": 1080,
+      "rawWidth": 1924,
+      "rawHeight": 1080,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "gachBum",
+    "_name": "starBum",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -91,7 +91,7 @@
     "_custom": true,
     "_file": null,
     "_spriteFrame": {
-      "__uuid__": "da32cb02-5daf-457e-b362-2e25ec799b4d"
+      "__uuid__": "116b4238-761a-4868-bdef-80ad6aa91970"
     },
     "_texture": null,
     "_stopped": true,
@@ -133,7 +133,7 @@
     "angle": 0,
     "angleVar": 360,
     "startSize": 50,
-    "startSizeVar": 50,
+    "startSizeVar": 0,
     "endSize": 0,
     "endSizeVar": 0,
     "startSpin": 0,
@@ -147,7 +147,7 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 10,
+      "x": 0,
       "y": 0
     },
     "_positionType": 0,
@@ -156,10 +156,10 @@
     "gravity": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -500
+      "y": 100
     },
-    "speed": 400,
-    "speedVar": 400,
+    "speed": 200,
+    "speedVar": 200,
     "tangentialAccel": 80,
     "tangentialAccelVar": 0,
     "radialAccel": 0,
@@ -180,7 +180,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "55cdddb5-2924-41ac-b6cc-8835be963034"
+      "__uuid__": "ae1d540f-2da7-404e-9a66-d55c884302ad"
     },
     "fileId": "",
     "sync": false

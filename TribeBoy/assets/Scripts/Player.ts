@@ -1,6 +1,7 @@
 import GameManager from "./Game_Manager";
 import Cau from "./cauvo";
 import Enemy from "./Enemy";
+import startup from "./startup";
 // import Star from "./Star";
 // import Boss from "./Boss";
 enum SOUND {
@@ -40,6 +41,10 @@ export default class Player extends cc.Component {
     Velocity_Max_Y: number;
 
     count: number
+
+    private guideLeft: number = 0;
+    private guideRight: number = 0;
+    private guideUp: number = 0;
  
     playSound(soundId: number, loop: boolean = false, delay: number = 0){
         this.scheduleOnce(()=>{
@@ -49,11 +54,11 @@ export default class Player extends cc.Component {
  
     onLoad () {
         this.Direction = 0;
-        this.Velocity_Max_X = 1000;
+        this.Velocity_Max_X = 800;
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
-        this.Walk_Force = 9000;
-        this.Jump_Force = 30000;
-        this.Jump_Force1 = 20000;
+        this.Walk_Force = 12000;
+        this.Jump_Force = 65000;
+        this.Jump_Force1 = 30000;
         this.On_the_Ground = false;
         this.count = 0
 
@@ -71,6 +76,9 @@ export default class Player extends cc.Component {
         
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyPressed, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyReleased, this);
+
+        
+        
  
         this.Left.node.on(cc.Node.EventType.TOUCH_START, function(touch, event) {
             this.node.getComponent(sp.Skeleton).setAnimation(0, "run", true);
@@ -89,6 +97,22 @@ export default class Player extends cc.Component {
             this.Direction = 1;
             this.node.scaleX = 0.45;
             cc.log("Right");
+
+
+            if (this.guideRight >= 1) {
+                this.guideRight++;
+                cc.log("chay vao righguide")
+ 
+            } else if (this.guideRight === 0) {
+                this.guideRight++;
+
+                GameManager.ins.UI.getChildByName("tut_hand").active = false;
+
+                cc.tween(GameManager.ins.UI.getChildByName("Shadowstart"))
+                .to(0.5, {opacity: 0}).start();
+            }
+            this.Direction = 1;
+            cc.log("Right_Start");
         }, this);
  
         this.Right.node.on(cc.Node.EventType.TOUCH_END, function(touch, event) {
@@ -115,6 +139,21 @@ export default class Player extends cc.Component {
                 this.count = this.count + 1;
                 cc.log("Nhay 2");
             }
+            if (this.guideUp >= 1) {
+                this.guideUp++;
+                cc.log("chay vao righguide")
+ 
+            } else if (this.guideUp === 0) {
+                this.guideUp++;
+
+                GameManager.ins.UI.getChildByName("Jump").getChildByName("tut_hand").active = false;
+
+                cc.tween(GameManager.ins.UI.getChildByName("Shadowstart1"))
+                .to(0.5, {opacity: 0}).start();
+
+                startup.ins.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+            }
+
         }, this);
         // this.Up.node.on(cc.Node.EventType.TOUCH_CANCEL, function(touch, event) {
         //     this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
@@ -185,7 +224,7 @@ export default class Player extends cc.Component {
             case cc.macro.KEY.left:
                
                 this.Direction = -1;
-                this.node.scaleX = -0.35;
+                this.node.scaleX = -0.45;
                 this.node.getComponent(sp.Skeleton).setAnimation(0, "run", true);
                 console.log("a")
                 
@@ -194,7 +233,7 @@ export default class Player extends cc.Component {
             case cc.macro.KEY.right:
                 
                 this.Direction = 1;
-                this.node.scaleX = 0.35;
+                this.node.scaleX = 0.45;
 
                 this.node.getComponent(sp.Skeleton).setAnimation(0, "run", true);
                 console.log("d")
@@ -203,14 +242,23 @@ export default class Player extends cc.Component {
  
             case cc.macro.KEY.up:
                 cc.log("W")
-                if(this.count < 2){
+                if (this.count === 0) {
+                    if (window.playsound = true) {
+                        this.playSound(SOUND.JUMP1, false)
+                    }
                     this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force), true)
-                    this.node.getComponent(sp.Skeleton).setAnimation(0, "jump1", true);
+                    this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true)
+                   
                     this.count = this.count + 1;
-                
-                    // this.node.getComponent(sp.Skeleton).setAnimation(0, "jump2", true);
-                    // this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
-                    cc.log("w")
+                    cc.log("nhay 1");
+                }else if(this.count === 1){
+                    if (window.playsound = true) {
+                        this.playSound(SOUND.JUMP1, false)
+                    }
+                    this.Rigid_Body.applyForceToCenter(cc.v2(0, this.Jump_Force1), true)
+                    this.node.getComponent(sp.Skeleton).setAnimation(0, "jump3", true);
+                    this.count = this.count + 1;
+                    cc.log("Nhay 2");
                 }
             break;
         }
@@ -232,7 +280,7 @@ export default class Player extends cc.Component {
             
             case cc.macro.KEY.up:
                     this.Direction = 0;
-                    this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+                    this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
                 
             break;
         }

@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "gachBum",
+    "_name": "glow1",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -29,15 +29,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 178,
+      "g": 216,
+      "b": 60,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 100,
+      "height": 100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -48,16 +48,16 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        10409.845,
+        -469.835,
         0,
         0,
         0,
         0,
         1,
-        1,
-        1,
-        1
+        10,
+        10,
+        5
       ]
     },
     "_eulerAngles": {
@@ -91,22 +91,22 @@
     "_custom": true,
     "_file": null,
     "_spriteFrame": {
-      "__uuid__": "da32cb02-5daf-457e-b362-2e25ec799b4d"
+      "__uuid__": "335229b0-eebf-4e89-b911-983e496982e1"
     },
     "_texture": null,
-    "_stopped": true,
+    "_stopped": false,
     "playOnLoad": true,
     "autoRemoveOnFinish": false,
-    "totalParticles": 150,
-    "duration": 1.5,
-    "emissionRate": 15,
-    "life": 5,
+    "totalParticles": 500,
+    "duration": 1000,
+    "emissionRate": 50,
+    "life": 1,
     "lifeVar": 0,
     "_startColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 243,
+      "g": 219,
+      "b": 92,
       "a": 255
     },
     "_startColorVar": {
@@ -118,9 +118,9 @@
     },
     "_endColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 236,
+      "g": 243,
+      "b": 152,
       "a": 0
     },
     "_endColorVar": {
@@ -132,14 +132,14 @@
     },
     "angle": 0,
     "angleVar": 360,
-    "startSize": 50,
-    "startSizeVar": 50,
-    "endSize": 0,
-    "endSizeVar": 0,
-    "startSpin": 0,
-    "startSpinVar": 0,
-    "endSpin": 0,
-    "endSpinVar": 0,
+    "startSize": 500,
+    "startSizeVar": 500,
+    "endSize": 300,
+    "endSizeVar": 300,
+    "startSpin": 300,
+    "startSpinVar": 330,
+    "endSpin": 300,
+    "endSpinVar": 300,
     "sourcePos": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -147,8 +147,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 10,
-      "y": 0
+      "x": 5,
+      "y": 5
     },
     "_positionType": 0,
     "positionType": 0,
@@ -156,13 +156,13 @@
     "gravity": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -500
+      "y": 0
     },
-    "speed": 400,
-    "speedVar": 400,
-    "tangentialAccel": 80,
+    "speed": 180,
+    "speedVar": 50,
+    "tangentialAccel": 0,
     "tangentialAccelVar": 0,
-    "radialAccel": 0,
+    "radialAccel": 50,
     "radialAccelVar": 0,
     "rotationIsDir": false,
     "startRadius": 0,
@@ -180,7 +180,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "55cdddb5-2924-41ac-b6cc-8835be963034"
+      "__uuid__": "f9e2d9ec-60c8-488e-b0c4-6fb2ae493363"
     },
     "fileId": "",
     "sync": false

@@ -4,8 +4,8 @@ import Player from "./Player";
 const {ccclass, property} = cc._decorator;
  
 enum SOUND {
-    enemyHiding,
     enemyKill,
+    MAINDIE
 }
  
 @ccclass
@@ -15,6 +15,12 @@ export default class Enemy extends cc.Component {
     @property (cc.AudioClip)
     sounds: cc.AudioClip[] = [];
 
+    @property(cc.Node)
+    Enemy1: cc.Node = null;
+
+    @property(cc.Node)
+    Enemy2: cc.Node = null;
+
     ocCount : number;
 
     public static ins: Enemy;
@@ -22,16 +28,27 @@ export default class Enemy extends cc.Component {
  
     onLoad () {
         Enemy.ins = this;
-        cc.tween(this.node).repeatForever( 
+
+        cc.tween(this.Enemy1).repeatForever(
             cc.tween()
-            .by(6, {x:-350})
-            .delay(1)
-            .call(() => this.node.scaleX = 0.45)
-            .by(8, {x: 650})
-            .delay(1)
-            .call(() => this.node.scaleX = -0.45)
+            .to(6, {position: cc.v3(4100,-635)})
+            .call(() => this.Enemy1.scaleX = -0.45)
+            .to(6, {position: cc.v3(3260, -635)})
+            .call(() => this.Enemy1.scaleX = 0.45)
         )
         .start();
+
+    
+        cc.tween(this.Enemy2).repeatForever(
+            cc.tween()
+            .to(6, {position: cc.v3(4100,-635)})
+            .call(() => this.Enemy2.scaleX = 0.45)
+            .to(6, {position: cc.v3(5350, -635)})
+            .call(() => this.Enemy2.scaleX = -0.45)
+        )
+        .start();
+
+
         let physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
  
@@ -39,7 +56,7 @@ export default class Enemy extends cc.Component {
         collisionManager.enabled = true;
  
         Enemy.ins = this;
-        this.ocCount = 0
+        // this.ocCount = 0
     }
     playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {
         
@@ -52,7 +69,7 @@ export default class Enemy extends cc.Component {
         if (selfCollider.tag === 5 && otherCollider.tag === 1) { 
             // this.playSound(this.enemyKill);
             if (window.playsound){
-                this.playSound(SOUND.enemyHiding, false, 0)
+                this.playSound(SOUND.enemyKill, false, 0)
             }
 
             this.node.getComponent(sp.Skeleton).setAnimation(0, "die", true);
@@ -104,7 +121,9 @@ export default class Enemy extends cc.Component {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                     --GameManager.ins.checkLose;
-                    this.node.getComponent(cc.BoxCollider).enabled = true;
+                    this.scheduleOnce(() => {
+                        this.node.getComponent(cc.BoxCollider).enabled = true;
+                    }, 1.5)
                 })
                 .start();
             }
@@ -132,7 +151,10 @@ export default class Enemy extends cc.Component {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                     --GameManager.ins.checkLose;
-                    this.node.getComponent(cc.BoxCollider).enabled = true;
+                    this.scheduleOnce(() => {
+                        this.node.getComponent(cc.BoxCollider).enabled = true;
+                    }, 1.5)
+                   
                 })
                 .start();
             }
@@ -140,11 +162,6 @@ export default class Enemy extends cc.Component {
     
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 1").getChildByName("hp 1").active = false;
-    
-    
-                if (window.playsound = true) {
-                    this.playSound(SOUND.MAINDIE, false)
-                }
     
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
@@ -160,13 +177,14 @@ export default class Enemy extends cc.Component {
                     cc.tween(Player.ins.node).by(2, {y: 250}).by(2, {y: -250}).start();
                         this.scheduleOnce(() => {
                         Player.ins.node.destroy();
-                    }, 0.5)
+                    }, 1)
+
                     GameManager.ins.lose = true;
                     GameManager.ins.updateCanvasSize();
-                    // if (window.playsound = true) {
-                    //     this.playSound(SOUND.POPUP, false, 0.5)
-                    // }
-                    // window.gameEnd && window.gameEnd();
+                    if (window.playsound = true) {
+                        this.playSound(SOUND.MAINDIE, false)
+                    }
+                    window.gameEnd && window.gameEnd();
                     --GameManager.ins.checkLose;
                     // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                 })

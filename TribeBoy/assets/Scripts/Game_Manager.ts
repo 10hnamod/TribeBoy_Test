@@ -25,6 +25,9 @@ export default class GameManager extends cc.Component {
  
     @property(cc.Node)
     UI: cc.Node = null;
+
+    @property(cc.Prefab)
+    starBum: cc.Prefab = null;
  
     @property(cc.Prefab)
     coinBum: cc.Prefab = null;
@@ -37,6 +40,7 @@ export default class GameManager extends cc.Component {
  
     @property([cc.AudioClip])
     sounds: cc.AudioClip[] = [];
+
  
     public static ins: GameManager;
     public numberStar: number = 0;
@@ -80,24 +84,22 @@ export default class GameManager extends cc.Component {
             this.playSound(SOUND.BG, true)
         }
  
-        // let scale1 = this.UI.getChildByName("Lose").getChildByName("btn_play").scale;
-        // this.UI.getChildByName("Lose").scale = 0;
-        // cc.tween(this.UI.getChildByName("Lose").getChildByName("btn_play"))
-        // .to(0, {scale: scale1}, {easing: "fade"})
-        // .repeatForever(
-        //     cc.tween()
-        //     .to(0.5, {scale: scale1 + 0.1}, {easing: "fade"})
-        //     .to(0.5, {scale: scale1}, {easing: "fade"})
-        // ).start();
+        let scale1 = this.UI.getChildByName("Lose").getChildByName("btn_play").scale;
+        this.UI.getChildByName("Lose").scale = 0;
+        cc.tween(this.UI.getChildByName("Lose").getChildByName("btn_play"))
+        .to(0, {scale: scale1}, {easing: "fade"})
+        .repeatForever(
+            cc.tween()
+            .to(0.5, {scale: scale1 + 0.1}, {easing: "fade"})
+            .to(0.5, {scale: scale1}, {easing: "fade"})
+        ).start();
  
-        // cc.tween(this.UI.getChildByName("Tap to start!"))
-        // .to(0, {scale: 1}, {easing: "fade"})
-        // .repeatForever(
-        //     cc.tween()
-        //     .to(1, {scale: 1.15}, {easing: "fade"})
-        //     .to(1, {scale: 1}, {easing: "fade"})
-        // ).start();
- 
+    }
+
+    initstarBum (Node: cc.Node) {
+        var starBum = cc.instantiate(this.starBum);
+        Node.addChild(starBum);
+        // starBum.setPosition(Node.position);
     }
  
     initCoinBum (Node: cc.Node) {
@@ -115,84 +117,13 @@ export default class GameManager extends cc.Component {
         Node.addChild(cauBum);
     }
  
-//     // totalNumberStar() {
-//     //     if (this.numberStar === 0) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.1;
- 
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("1").getChildByName("1a").active = false;
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("2").getChildByName("2a").active = false;
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("3").getChildByName("3a").active = false;
-//     //     }
- 
-//     //     if (this.numberStar === 1) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.2;
-//     //     }
-//     //     if (this.numberStar === 2) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.25;
-//     //     }
-//     //     if (this.numberStar === 3) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.3;
-//     //     }
- 
-//     //     if (this.numberStar ===  4) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.35;
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("1").getChildByName("1a").active = true;
-//     //     }
-//     //     if (this.numberStar ===  5) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.425;
-//     //     }
-//     //     if (this.numberStar ===  6) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.5;
-//     //     }
-//     //     if (this.numberStar ===  7) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.575;
-//     //     }
-//     //     if (this.numberStar ===  8) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.625;
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("2").getChildByName("2a").active = true;
-//     //     }
-//     //     if (this.numberStar ===  9) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.7;
-//     //     }
-//     //     if (this.numberStar ===  10) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.8;
-//     //     }
-//     //     if (this.numberStar === 11) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 0.9;
- 
-//     //     }if (this.numberStar === 12) {
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("grs").getComponent(cc.ProgressBar).progress = 1;
- 
-//     //         this.UI.getChildByName("Progress")
-//     //         .getChildByName("3").getChildByName("3a").active = true;
-//     //     }
-    // }
- 
-    // clickStore () {
-    //     window.gameEnd && window.gameEnd();
-    //     if (window.playsound = true) {
-    //         this.playSound(SOUND.CLICK, false);
-    //     }
-    //     window.openStore();
-    // }
+    clickStore () {
+        window.gameEnd && window.gameEnd();
+        if (window.playsound = true) {
+            this.playSound(SOUND.CLICK, false);
+        }
+        window.openStore();
+    }
  
     updateCanvasSize() {
  
@@ -211,14 +142,12 @@ export default class GameManager extends cc.Component {
             this.UI.getChildByName("Jump").scale = 1.45;
             cc.log("chay vao size");
  
-//             // if (this.lose === true) {
-//             //     cc.tween(this.UI.getChildByName("Lose"))
-//             //     .to(1, {scale: 0.8}, {easing: "backOut"})
-//             //     .start();
-//             //     // this.UI.getChildByName("Lose").scale = 0.8;
-//             // }
- 
-//             // this.UI.getChildByName("Tap to start!").position = cc.v3(0, 220);
+            if (this.lose === true) {
+                cc.tween(this.UI.getChildByName("Lose"))
+                .to(1, {scale: 1.55}, {easing: "backOut"})
+                .start();
+                // this.UI.getChildByName("Lose").scale = 0.8;
+            }
  
             this.UI.getChildByName("PlayerUI").position = cc.v3(0, 0);
             this.UI.getChildByName("PlayerUI").getChildByName("Health").position = cc.v3(-50, 0);
@@ -226,31 +155,32 @@ export default class GameManager extends cc.Component {
             this.UI.getChildByName("Left").position = cc.v3(-1120, -690);
             this.UI.getChildByName("Right").position = cc.v3(-700, -690);
             this.UI.getChildByName("Jump").position = cc.v3(1100, -700);
-            // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -500);
+            // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -750);
         }
-//         else {
-//             cc.log("máy dọc")
-//             // this.UI.scale = 1;
-//             // this.UI.position = cc.v3(0, 0);
+        else {
+            cc.log("máy dọc")
+            // this.UI.scale = 1;
+            // this.UI.position = cc.v3(0, 0);
  
-//             // this.UI.getChildByName("PlayerUI").scale = 1.3;
-//             // this.UI.getChildByName("Left").scale = 1.1;
-//             // this.UI.getChildByName("Right").scale = 1.1;
-//             // this.UI.getChildByName("Jump").scale = 1.1;
+            this.UI.getChildByName("PlayerUI").scale = 1.3;
+            this.UI.getChildByName("Left").scale = 1.1;
+            this.UI.getChildByName("Right").scale = 1.1;
+            this.UI.getChildByName("Jump").scale = 1.1;
  
-//             // // if (this.lose === true) {
-//             // //     cc.tween(this.UI.getChildByName("Lose"))
-//             // //     .to(1, {scale: 1}, {easing: "backOut"})
-//             // //     .start();
-//             // //     // this.UI.getChildByName("Lose").scale = 1;
-//             // // 
+            if (this.lose === true) {
+                cc.tween(this.UI.getChildByName("Lose"))
+                .to(1, {scale: 1}, {easing: "backOut"})
+                .start();
+                // this.UI.getChildByName("Lose").scale = 1;
+            }
+            
  
-//             this.UI.getChildByName("PlayerUI").position = cc.v3(0, 100);
-//             this.UI.getChildByName("left").position = cc.v3(-370, -785);
-//             this.UI.getChildByName("right").position = cc.v3(-39, -785);
-//             this.UI.getChildByName("up").position = cc.v3(380.141, -530);
-// //             // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -620);
-//         }
+            this.UI.getChildByName("PlayerUI").position = cc.v3(0, 100);
+            this.UI.getChildByName("left").position = cc.v3(-370, -785);
+            this.UI.getChildByName("right").position = cc.v3(-39, -785);
+            this.UI.getChildByName("up").position = cc.v3(380.141, -530);
+//             // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -620);
+        }
     }
  
     update (dt) {
@@ -267,10 +197,10 @@ export default class GameManager extends cc.Component {
  
         let currentPosition = this.camera2D.node.getPosition();
         currentPosition.lerp(targetPosition, 0.5, currentPosition);
- 
+
         this.camera2D.node.setPosition(currentPosition);
  
-        this.BG.setPosition(currentPosition.x/2, currentPosition.y/3);
+        this.BG.setPosition(currentPosition.x/2, currentPosition.y/1.5);
 
         this.UI.setPosition(currentPosition);
  

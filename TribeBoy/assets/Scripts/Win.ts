@@ -21,6 +21,18 @@ export default class Win extends cc.Component {
     @property([cc.AudioClip])
     sounds: cc.AudioClip[] = [];
 
+    @property(cc.Node)
+    Tap: cc.Node = null;
+
+    @property(cc.Node)
+    Guide: cc.Node = null;
+
+    @property(sp.Skeleton)
+    dinasour: sp.Skeleton = null;
+
+    @property(cc.Camera)
+    camera2D: cc.Camera = null;
+
     // LIFE-CYCLE CALLBACKS:
 
 
@@ -45,18 +57,40 @@ export default class Win extends cc.Component {
             Player.ins.node.position = cc.v3(7000, -636);
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "run", true);
             cc.tween(Player.ins.node)
-            .by(5,{x: 2000})
+            .by(4,{x: 1650}, {easing: "smooth"})
             .start();   
         }
         if (self.tag === 7) {
             if (window.playsound = true){
                 this.playSound(SOUND.WIN, false)
             }
-            Player.ins.node.position = cc.v3(9000, -636);
+            Player.ins.node.position = cc.v3(7500, -636);
+            // Player.ins.node.scale = 0.5;
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "idle", true);
+
+            GameManager.ins.player.node.getPosition()
             
             GameManager.ins.node.getChildByName("Shadow").active = true;
-            GameManager.ins.node.getChildByName("Store").getChildByName("Tap to ride").active = true;
+
+            GameManager.ins.node.getChildByName("Store").getChildByName("dinosaur").scale = 0.75;
+
+            GameManager.ins.node.getChildByName("Store").getChildByName("glow1").active = true;
+            cc.tween(this.Tap)
+                .to(0, {scale: 15}, {easing: "fade"})
+                .repeatForever(
+                    cc.tween()
+                    .to(1, {scale: 17}, {easing: "fade"})
+                    .to(1, {scale: 15}, {easing: "fade"})
+                ).start();
+
+            GameManager.ins.node.getChildByName("Store").getChildByName("muiten").active = true;
+            cc.tween(this.Guide)
+            .repeatForever(
+                cc.tween()
+                .to(0.5, {opacity: 255}, {easing: "smooth"})
+                .to(0.5, {opacity: 0}, {easing: "smooth"})
+                .to(0.5, {opacity: 255}, {easing: "fade"})
+            ).start();
             GameManager.ins.node.getChildByName("UI").active = false;
             // window.gameEnd && window.gameEnd();
         }
