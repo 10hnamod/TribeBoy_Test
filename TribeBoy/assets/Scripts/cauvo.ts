@@ -49,9 +49,12 @@ export default class Cau extends cc.Component {
         if (self.tag === 2) {
             cc.log("Cau")
             if (window.playsound = true) {
-                this.playSound(SOUND.cauVo, false)
+                cc.sequence(
+                    this.playSound(SOUND.cauVo, false),
+                    this.playSound(SOUND.cauVo1, false),
+                );
+                GameManager.ins.intcauBum(self.node);
             }
-            GameManager.ins.intcauBum(self.node);
  
             // cc.tween(self.node)
             // .to(2, {scale: 1.5}, {easing: "fade"})
@@ -59,8 +62,10 @@ export default class Cau extends cc.Component {
             // .start();
 
             this.scheduleOnce(() => {
-                this.playSound(SOUND.cauVo1, false);
-                cc.log("chay vao if")
+                // if (window.playsound = true) {
+                //     this.playSound(SOUND.cauVo1, false)
+                // }
+                // cc.log("chay vao if")
                 self.node.active = false;
             }, 2)
         }
