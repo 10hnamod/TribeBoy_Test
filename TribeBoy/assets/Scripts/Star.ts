@@ -31,11 +31,13 @@ export default class Star extends cc.Component {
                 this.playSound(SOUND.STAR, false)
             }
             GameManager.ins.initstarBum(self.node);
-            cc.tween(self.node).to(0.5, {scale: 0}, {easing: "smooth"})
-            .start();
+            this.node.runAction(cc.moveBy(2, 900, 1600))
+            // cc.tween(self.node).to(0.5, {scale: 0}, {easing: "smooth"})
+            // .start();
             this.scheduleOnce(() => {
+                GameManager.ins.UI.getChildByName("PlayerUI").getChildByName("Star").getChildByName("star bnw 1").getChildByName("star 1").active = true;
                 self.node.destroy();
-            }, 0.5)
+            }, 1)
         }
     }
  

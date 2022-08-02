@@ -96,14 +96,10 @@ export default class Enemy extends cc.Component {
     }
     onCollisionEnter (other, self) {
         if (other.node.name === "Player") {
-            //player nhap nhay
+        
             console.log(GameManager.ins.checkLose)
             if (GameManager.ins.checkLose === 3) {
-    
-                // if (window.playsound = true) {
-                //     this.playSound(SOUND.DAME, false)
-                // }
-    
+
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 3").getChildByName("hp 3").active = false;
     
@@ -119,7 +115,6 @@ export default class Enemy extends cc.Component {
                 .to(0.05, {opacity: 255}, {easing: "fade"})
                 .call(() => {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
-                    // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
                         this.node.getComponent(cc.BoxCollider).enabled = true;
@@ -130,14 +125,9 @@ export default class Enemy extends cc.Component {
     
             if (GameManager.ins.checkLose === 2) {
     
-                // if (window.playsound = true) {
-                //     this.playSound(SOUND.DAME, false)
-                // }
     
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 2").getChildByName("hp 2").active = false;
-    
-                // let cc = 
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
                 cc.tween(other.node).to(0, {opacity: 255}, {easing: "fade"})
@@ -149,7 +139,6 @@ export default class Enemy extends cc.Component {
                 .to(0.05, {opacity: 255}, {easing: "fade"})
                 .call(() => {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
-                    // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
                         this.node.getComponent(cc.BoxCollider).enabled = true;
@@ -186,7 +175,6 @@ export default class Enemy extends cc.Component {
                     }
                     window.gameEnd && window.gameEnd();
                     --GameManager.ins.checkLose;
-                    // Player.ins.node.getComponent(cc.PhysicsCircleCollider).restitution = 0;
                 })
                 .start();
             }
