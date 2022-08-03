@@ -40,6 +40,8 @@ export default class Cau extends cc.Component {
             }, delay);
         }
     }
+
+ 
  
     onCollisionEnter (other, self) {
         cc.log(self.tag)
@@ -47,7 +49,10 @@ export default class Cau extends cc.Component {
         if (self.tag === 2) {
             cc.log("Cau")
             if (window.playsound = true) {
-                    this.playSound(SOUND.cauVo, false);
+                cc.sequence(
+                    this.playSound(SOUND.cauVo, false),
+                    this.playSound(SOUND.cauVo1, false),
+                );
                 GameManager.ins.intcauBum(self.node);
             }
  
@@ -57,10 +62,10 @@ export default class Cau extends cc.Component {
             // .start();
 
             this.scheduleOnce(() => {
-                if (window.playsound = true) {
-                    this.playSound(SOUND.cauVo1, false)
-                }
-                cc.log("chay vao if")
+                // if (window.playsound = true) {
+                //     this.playSound(SOUND.cauVo1, false)
+                // }
+                // cc.log("chay vao if")
                 self.node.active = false;
             }, 2)
         }

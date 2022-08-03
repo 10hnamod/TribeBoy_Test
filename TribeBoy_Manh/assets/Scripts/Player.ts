@@ -54,13 +54,13 @@ export default class Player extends cc.Component {
  
     onLoad () {
         this.Direction = 0;
-        this.Velocity_Max_X = 800;
+        this.Velocity_Max_X = 400;
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
-        this.Walk_Force = 12000;
-        this.Jump_Force = 65000;
-        this.Jump_Force1 = 30000;
+        this.Walk_Force = 3500000;
+        this.Jump_Force = 9500000;
+        this.Jump_Force1 = 3500000;
         this.On_the_Ground = false;
-        this.count = 0
+        this.count = 0;
 
         Player.ins = this;
 
@@ -107,6 +107,7 @@ export default class Player extends cc.Component {
                 this.guideRight++;
 
                 GameManager.ins.UI.getChildByName("tut_hand").active = false;
+                GameManager.ins.UI.getChildByName("Left").active = true;
 
                 cc.tween(GameManager.ins.UI.getChildByName("Shadowstart"))
                 .to(0.5, {opacity: 0}).start();
@@ -147,6 +148,7 @@ export default class Player extends cc.Component {
                 this.guideUp++;
 
                 GameManager.ins.UI.getChildByName("Jump").getChildByName("tut_hand").active = false;
+                
 
                 cc.tween(GameManager.ins.UI.getChildByName("Shadowstart1"))
                 .to(0.5, {opacity: 0}).start();
@@ -155,12 +157,6 @@ export default class Player extends cc.Component {
             }
 
         }, this);
-        // this.Up.node.on(cc.Node.EventType.TOUCH_CANCEL, function(touch, event) {
-        //     this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
-        
-        //     this.Direction = 0;
-        //     cc.log("Tha ra")
-        // }, this);
         
         this.Up.node.on(cc.Node.EventType.TOUCH_END, function(touch, event) {
             this.node.getComponent(sp.Skeleton).setAnimation(0, "fall_down1", true);
@@ -181,41 +177,17 @@ export default class Player extends cc.Component {
     }
  
     onBeginContact(contact, selfCollider, otherCollider) {
-        if(selfCollider.tag === 1) {
+        if(selfCollider.tag === 1 && otherCollider.tag === 0) {
             if(this.count == 2 || this.count == 1 ){
                 this.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                 if (window.playsound = true) {
                     this.playSound(SOUND.LAND, false)
                 }
-                cc.log("dung");
+                cc.log("dung tren land");
             }
             this.count = 0;
         }
     }
-
- 
-    // onCollisionEnter (other, self) {
-    //     if (other.node.name === "finish") {
-    //         this.node.getComponent(sp.Skeleton).setAnimation(0, "happy", true);
- 
-    //         this.node.getComponent(cc.CircleCollider).enabled = false;
-            
-    //         if (window.playsound = true) {
-    //             this.playSound(SOUND.FINISH, false)
-    //         }
-    //         let Pos = GameManager.ins.node.getChildByName("finish").position;
-    //         this.node.getComponent(cc.RigidBody).fixedRotation = true;
-    //         this.node.angle = 0;
-    //         cc.tween(self.node).to(1.5, {scale: self.node.scale - 0.3}, {easing: "smooth"}).start();
-    //         cc.tween(self.node).to(1.5, {opacity: 0}, {easing: "smooth"}).start();
-    //         cc.tween(self.node).to(1.5, {position: Pos}, {easing: "smooth"})
-    //         .call(() => {
-    //             window.gameEnd && window.gameEnd();
-    //             window.openStore();
-    //         })
-    //         .start();
-    //     }
-    // }
  
     onKeyPressed (event) {
  

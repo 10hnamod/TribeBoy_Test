@@ -1,6 +1,6 @@
 import GameManager from "./Game_Manager";
 import Player from "./Player";
-
+ 
 const {ccclass, property} = cc._decorator;
  
 enum SOUND {
@@ -14,30 +14,30 @@ export default class Enemy extends cc.Component {
  
     @property (cc.AudioClip)
     sounds: cc.AudioClip[] = [];
-
+ 
     @property(cc.Node)
     Enemy1: cc.Node = null;
-
+ 
     @property(cc.Node)
     Enemy2: cc.Node = null;
-
+ 
     ocCount : number;
-
+ 
     public static ins: Enemy;
-
+ 
  
     onLoad () {
         Enemy.ins = this;
-
+ 
         cc.tween(this.Enemy1).repeatForever(
             cc.tween()
-            .to(6, {position: cc.v3(4100,-635)})
+            .to(10, {position: cc.v3(5100,-635)})
             .call(() => this.Enemy1.scaleX = -0.45)
-            .to(6, {position: cc.v3(3260, -635)})
+            .to(10, {position: cc.v3(3260, -635)})
             .call(() => this.Enemy1.scaleX = 0.45)
         )
         .start();
-
+ 
     
         cc.tween(this.Enemy2).repeatForever(
             cc.tween()
@@ -47,8 +47,8 @@ export default class Enemy extends cc.Component {
             .call(() => this.Enemy2.scaleX = -0.45)
         )
         .start();
-
-
+ 
+ 
         let physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
  
@@ -71,7 +71,7 @@ export default class Enemy extends cc.Component {
             if (window.playsound){
                 this.playSound(SOUND.enemyKill, false, 0)
             }
-
+ 
             this.node.getComponent(sp.Skeleton).setAnimation(0, "die", true);
             this.scheduleOnce(function() {
                 this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
@@ -81,7 +81,7 @@ export default class Enemy extends cc.Component {
             //     cc.log("lan1")
             //     this.node.getComponent(sp.Skeleton).setAnimation(0, "die", true)
             //     this.ocCount = 1
-
+ 
             // }
             // else if(this.ocCount == 1){
             //     cc.log("chet con")
@@ -99,11 +99,12 @@ export default class Enemy extends cc.Component {
         
             console.log(GameManager.ins.checkLose)
             if (GameManager.ins.checkLose === 3) {
-
+ 
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 3").getChildByName("hp 3").active = false;
     
                 // let cc = 
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
                 cc.tween(other.node).to(0, {opacity: 255}, {easing: "fade"})
@@ -117,8 +118,9 @@ export default class Enemy extends cc.Component {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
+                        this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
                         this.node.getComponent(cc.BoxCollider).enabled = true;
-                    }, 1.5)
+                    }, 1)
                 })
                 .start();
             }
@@ -128,6 +130,8 @@ export default class Enemy extends cc.Component {
     
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 2").getChildByName("hp 2").active = false;
+                
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
                 cc.tween(other.node).to(0, {opacity: 255}, {easing: "fade"})
@@ -141,8 +145,9 @@ export default class Enemy extends cc.Component {
                     Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
+                        this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
                         this.node.getComponent(cc.BoxCollider).enabled = true;
-                    }, 1.5)
+                    }, 1)
                    
                 })
                 .start();
@@ -152,6 +157,7 @@ export default class Enemy extends cc.Component {
                 GameManager.ins.UI.getChildByName("PlayerUI")
                 .getChildByName("Health").getChildByName("hp bnw 1").getChildByName("hp 1").active = false;
     
+                this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
                 cc.tween(other.node).to(0, {opacity: 255}, {easing: "fade"})
@@ -167,7 +173,7 @@ export default class Enemy extends cc.Component {
                         this.scheduleOnce(() => {
                         Player.ins.node.destroy();
                     }, 1)
-
+ 
                     GameManager.ins.lose = true;
                     GameManager.ins.updateCanvasSize();
                     if (window.playsound = true) {
@@ -183,5 +189,5 @@ export default class Enemy extends cc.Component {
 }
  
     // update (dt) {}
-
+ 
  

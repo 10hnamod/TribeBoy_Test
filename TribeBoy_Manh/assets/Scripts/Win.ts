@@ -27,8 +27,13 @@ export default class Win extends cc.Component {
     @property(cc.Node)
     Guide: cc.Node = null;
 
+    @property(cc.Node)
+    Label: cc.Node = null;
+
     @property(sp.Skeleton)
     dinasour: sp.Skeleton = null;
+
+   
 
     @property(cc.Camera)
     camera2D: cc.Camera = null;
@@ -58,15 +63,23 @@ export default class Win extends cc.Component {
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "run", true);
             cc.tween(Player.ins.node)
             .by(4,{x: 1650}, {easing: "smooth"})
-            .start();   
+            .start();
+            
         }
         if (self.tag === 7) {
             if (window.playsound = true){
                 this.playSound(SOUND.WIN, false)
             }
-            Player.ins.node.position = cc.v3(7500, -636);
+            Player.ins.node.position = cc.v3(8000, -636);
             // Player.ins.node.scale = 0.5;
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "idle", true);
+
+            GameManager.ins.checkCamWin = true;
+
+            cc.tween(GameManager.ins.camera2D.node)
+            .to(1, {position: 
+                cc.v3(GameManager.ins.camera2D.node.position.x + 500,GameManager.ins.camera2D.node.position.y)})
+            .start();
 
             GameManager.ins.player.node.getPosition()
             
@@ -74,25 +87,35 @@ export default class Win extends cc.Component {
 
             GameManager.ins.node.getChildByName("Store").getChildByName("dinosaur").scale = 0.75;
 
-            GameManager.ins.node.getChildByName("Store").getChildByName("glow1").active = true;
+            GameManager.ins.node.getChildByName("Store").getChildByName("Tap to ride").active = true;
+            // cc.tween(this.Label)
+            //     .to(0, {scale: 1}, {easing: "fade"})
+            //     .repeatForever(
+            //         cc.tween()
+            //         .to(1, {scale: 1.5}, {easing: "fade"})
+            //         .to(1, {scale: 1}, {easing: "fade"})
+            //     ).start();
+
+            GameManager.ins.node.getChildByName("Store").getChildByName("tut_hand").active = true;
             cc.tween(this.Tap)
-                .to(0, {scale: 15}, {easing: "fade"})
+                .to(0, {scale: 1.5}, {easing: "fade"})
                 .repeatForever(
                     cc.tween()
-                    .to(1, {scale: 17}, {easing: "fade"})
-                    .to(1, {scale: 15}, {easing: "fade"})
+                    .to(1, {scale: 1.7}, {easing: "fade"})
+                    .to(1, {scale: 1.5}, {easing: "fade"})
                 ).start();
 
-            GameManager.ins.node.getChildByName("Store").getChildByName("muiten").active = true;
-            cc.tween(this.Guide)
-            .repeatForever(
-                cc.tween()
-                .to(0.5, {opacity: 255}, {easing: "smooth"})
-                .to(0.5, {opacity: 0}, {easing: "smooth"})
-                .to(0.5, {opacity: 255}, {easing: "fade"})
-            ).start();
+            // GameManager.ins.node.getChildByName("Store").getChildByName("muiten").active = true;
+           
+            // cc.tween(this.Guide)
+            // .repeatForever(
+            //     cc.tween()
+            //     .to(0.5, {opacity: 255}, {easing: "smooth"})
+            //     .to(0.5, {opacity: 0}, {easing: "smooth"})
+            //     .to(0.5, {opacity: 255}, {easing: "fade"})
+            // ).start();
             GameManager.ins.node.getChildByName("UI").active = false;
-            // window.gameEnd && window.gameEnd();
+            window.gameEnd && window.gameEnd();
         }
     }
     // update (dt) {}

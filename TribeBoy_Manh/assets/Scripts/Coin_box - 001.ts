@@ -26,11 +26,24 @@ export default class coinBox extends cc.Component {
         if(this.node.getChildByName("coin_box").active === false && this.Self === true){
             this.node.getChildByName("coin").active = true;
             this.Self = false;
-            cc.tween(this.node.getChildByName("coin")).by(0.2, {x:10, y:150}).start();
-            cc.log("va cham box")
- 
-            // cc.tween(this.node.children[0]).by(0.2, {y:100}).start();
-            // .call(() => this.node.getChildByName("coin_box").destroy()).start();
-        } 
+            cc.tween(this.node.getChildByName("coin"))
+            .by(0.15, {x:0, y:150})
+            .by(0.6,{x:0, y:-725})
+            .by(0.125,{x:0, y:50})
+            .by(0.125,{x:0, y:-65})
+            .start();
+        }
+
+        // if(this.node.getChildByName("coin_box2").active === false && this.Self === true){
+        //     this.node.getChildByName("coin2").active = true;
+        //     this.Self = false;
+        //     cc.tween(this.node.getChildByName("coin2"))
+        //     .by(0.15, {x:0, y:150})
+        //     .by(0.55,{x:0, y:-1000})
+        //     .by(0.125,{x:0, y:50})
+        //     .by(0.125,{x:0, y:-50})
+        //     .start();
+        //     cc.log("va cham box")
+        // } 
    }
 }

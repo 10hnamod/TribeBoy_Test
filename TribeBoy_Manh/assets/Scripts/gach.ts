@@ -23,8 +23,7 @@ export default class Gach extends cc.Component {
  
  
     onLoad () {
-        cc.director.getPhysicsManager().enabled = true;
-        cc.director.getCollisionManager().enabled = true;
+        
         Gach.ins = this;
     }
  
@@ -37,7 +36,7 @@ export default class Gach extends cc.Component {
  
  
     onBeginContact(contact,selfCollider,otherCollider) {
-        if(otherCollider.tag === 3 && selfCollider.tag === 1){
+        if(otherCollider.tag === 0 && selfCollider.tag === 1){
             cc.log("va cham")
 
             if (window.playsound = true) {

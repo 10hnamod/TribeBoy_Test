@@ -41,7 +41,7 @@ export default class Box extends cc.Component {
     }
  
     onBeginContact(contact, selfCollider, otherCollider) {
-        if (selfCollider.tag === 1 && otherCollider.tag === 3 && !selfCollider.isHit) {
+        if (selfCollider.tag === 1 && otherCollider.tag === 0 && !selfCollider.isHit) {
             selfCollider.isHit = true;
             
             
