@@ -136,7 +136,7 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
@@ -185,12 +185,12 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -59
+      "y": -59.2
     },
     "_size": {
       "__type__": "cc.Size",
       "width": 111,
-      "height": 11
+      "height": 10
     },
     "_id": ""
   },
@@ -215,7 +215,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "34e495ed-c93f-4417-8a1d-9c322f2106ca"
+      "__id__": 0
     },
     "fileId": "",
     "sync": false

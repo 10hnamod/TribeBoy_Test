@@ -26,7 +26,6 @@ export default class startup extends cc.Component {
         if (other.node.name === ("Player")) {
 
             cc.log("va cham vao start")
-
             GameManager.ins.UI.getChildByName("Shadowstart1").active = true;
 
             cc.tween(GameManager.ins.UI.getChildByName("Jump"))
@@ -35,16 +34,6 @@ export default class startup extends cc.Component {
                 GameManager.ins.UI.getChildByName("Jump").active = true;
             })
             .start();
-
-
-
-
-            // GameManager.ins.node.getChildByName("Store").getChildByName("dinosaur").scale = 0.75;
-
-            // GameManager.ins.node.getChildByName("Store").getChildByName("glow1").active = true;
-
-            // GameManager.ins.node.getChildByName("UI").active = false;
-            // window.gameEnd && window.gameEnd();
         }
     }
     // LIFE-CYCLE CALLBACKS:

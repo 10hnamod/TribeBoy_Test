@@ -25,6 +25,8 @@ export default class Gach extends cc.Component {
     onLoad () {
         
         Gach.ins = this;
+        var physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
     }
  
     

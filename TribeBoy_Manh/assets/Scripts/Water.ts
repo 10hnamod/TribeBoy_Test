@@ -30,13 +30,16 @@ export default class water extends cc.Component {
     duration: number = 0;
  
     @property(cc.Node)
-    Water: any;
+    Water: number = 0;
 
     public static ins: water;
 
     onLoad () {
         water.ins = this;
         cc.director.getCollisionManager().enabled = true;
+
+        var physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
     }
 
     playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {
@@ -48,8 +51,6 @@ export default class water extends cc.Component {
 
 
     start () {
-        // this.node.position = cc.v3(-3283.144, -1963.917);
-        // this.node.position = this.bottomPoint.position;
         cc.tween(this.node)
         .repeatForever(
             cc.tween().to(this.duration, {x: this.topPoint.x})
@@ -61,12 +62,12 @@ export default class water extends cc.Component {
     onCollisionEnter (other, self) {
         if (other.node.name === "Player") {
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "die", true);
-            //player nhap nhay
+    
             console.log(GameManager.ins.checkLose)
                 if (window.playsound = true) {
                     this.playSound(SOUND.DIE, false)
                 }
-                // let cc = 
+                
                 this.node.getComponent(cc.BoxCollider).enabled = false;
     
                 cc.tween(other.node).to(0, {opacity: 255}, {easing: "fade"})
@@ -83,17 +84,9 @@ export default class water extends cc.Component {
                         Player.ins.node.destroy();
                     }, 0.5)
 
-                    // Player.ins.node.runAction(cc.moveBy(2, 0, -2500))
-                    //     this.scheduleOnce(function() {
-                    //         this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
-                    //     }, 0.15);
-                    // this.scheduleOnce(() => Player.ins.node.destroy(), 0.1);
                     GameManager.ins.lose = true;
                     GameManager.ins.updateCanvasSize();
-                    // if (window.playsound = true) {
-                    //     this.playSound(SOUND.POPUP, false, 0.5)
-                    // }
-                    // window.gameEnd && window.gameEnd();
+                    window.gameEnd && window.gameEnd();
                     --GameManager.ins.checkLose;
                 })
                 .start();

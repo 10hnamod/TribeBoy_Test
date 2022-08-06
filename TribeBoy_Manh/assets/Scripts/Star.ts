@@ -17,6 +17,9 @@ export default class Star extends cc.Component {
     onLoad () {
         Star.ins = this;
         cc.director.getCollisionManager().enabled = true;
+
+        var physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
     }
  
     playSound(soundId: number, loop: boolean = false, delay: number = 0){
@@ -31,7 +34,7 @@ export default class Star extends cc.Component {
                 this.playSound(SOUND.STAR, false)
             }
             GameManager.ins.initstarBum(self.node);
-            this.node.runAction(cc.moveBy(2, 900, 1600))
+            this.node.runAction(cc.moveBy(2, 1200, 2000),{easing: "smooth"})
             // cc.tween(self.node).to(0.5, {scale: 0}, {easing: "smooth"})
             // .start();
             this.scheduleOnce(() => {

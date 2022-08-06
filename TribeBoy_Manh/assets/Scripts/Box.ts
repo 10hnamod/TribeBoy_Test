@@ -44,7 +44,6 @@ export default class Box extends cc.Component {
         if (selfCollider.tag === 1 && otherCollider.tag === 0 && !selfCollider.isHit) {
             selfCollider.isHit = true;
             
-            
             cc.tween(this.node).by(0.1, {y: 20}).by(0.1, {y: -20}).start();
             this.scheduleOnce(() => {
                 this.node.active = false;

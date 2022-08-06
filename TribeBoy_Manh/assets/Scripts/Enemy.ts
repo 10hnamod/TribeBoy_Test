@@ -115,7 +115,7 @@ export default class Enemy extends cc.Component {
                 )
                 .to(0.05, {opacity: 255}, {easing: "fade"})
                 .call(() => {
-                    Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+                    // Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
                         this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
@@ -142,7 +142,7 @@ export default class Enemy extends cc.Component {
                 )
                 .to(0.05, {opacity: 255}, {easing: "fade"})
                 .call(() => {
-                    Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
+                    // Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "idle", true);
                     --GameManager.ins.checkLose;
                     this.scheduleOnce(() => {
                         this.node.getComponent(cc.PhysicsBoxCollider).enabled = true;
@@ -168,7 +168,7 @@ export default class Enemy extends cc.Component {
                 )
                 .to(0.05, {opacity: 255}, {easing: "fade"})
                 .call(() => {
-                    Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "die", true);
+                    // Player.ins.node.getComponent(sp.Skeleton).setAnimation(0, "die", true);
                     cc.tween(Player.ins.node).by(2, {y: 250}).by(2, {y: -250}).start();
                         this.scheduleOnce(() => {
                         Player.ins.node.destroy();

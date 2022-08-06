@@ -1,4 +1,5 @@
 import Player from "./Player";
+import Win from "./Win";
 // import Boy from "./Boy";
 // // import Star from "./Star";
 // // import Boss from "./Boss";
@@ -25,6 +26,9 @@ export default class GameManager extends cc.Component {
  
     @property(cc.Node)
     UI: cc.Node = null;
+
+    @property(cc.Node)
+    Store: cc.Node = null;
 
     @property(cc.Prefab)
     starBum: cc.Prefab = null;
@@ -58,7 +62,7 @@ export default class GameManager extends cc.Component {
     }
  
     onLoad () {
- 
+        // console.log(this.camera2D.getComponent(cc.Camera).zoomRatio)
         // this.node.getChildByName("finish").getChildByName("finish_effect").angle = 10;
  
         window.gameReady && window.gameReady();
@@ -136,7 +140,7 @@ export default class GameManager extends cc.Component {
  
             // this.UI.scale = 1;
             // this.UI.position = cc.v3(0, 0);
- 
+            this.camera2D.getComponent(cc.Camera).zoomRatio = 1;
             
             this.UI.getChildByName("PlayerUI").scale = 1.3;
             this.UI.getChildByName("PlayerUI").getChildByName("Health").scale = 1;
@@ -145,6 +149,14 @@ export default class GameManager extends cc.Component {
             this.UI.getChildByName("Right").scale = 1.45;
             this.UI.getChildByName("Jump").scale = 1.45;
             this.UI.getChildByName("tut_hand").scale = 1.5;
+            this.Store.getChildByName("dinosaur").scale = 0.75;
+            cc.tween( this.Store.getChildByName("tut_hand"))
+                .to(0, {scale: 1.5}, {easing: "fade"})
+                .repeatForever(
+                    cc.tween()
+                    .to(1, {scale: 1.7}, {easing: "fade"})
+                    .to(1, {scale: 1.5}, {easing: "fade"})
+                ).start();
             cc.log("chay vao size");
  
             if (this.lose === true) {
@@ -155,24 +167,40 @@ export default class GameManager extends cc.Component {
             }
  
             this.UI.getChildByName("PlayerUI").position = cc.v3(0, 0);
-            this.UI.getChildByName("PlayerUI").getChildByName("Health").position = cc.v3(-50, 90);
-            this.UI.getChildByName("PlayerUI").getChildByName("Star").position = cc.v3(50, -100);
+            this.UI.getChildByName("PlayerUI").getChildByName("Health").position = cc.v3(-50, 80);
+            this.UI.getChildByName("PlayerUI").getChildByName("Star").position = cc.v3(50, -110);
             this.UI.getChildByName("Left").position = cc.v3(-1320, -690);
             this.UI.getChildByName("Right").position = cc.v3(-850, -690);
             this.UI.getChildByName("Jump").position = cc.v3(1100, -700);
             this.UI.getChildByName("tut_hand").position = cc.v3(-850, -690);
+            this.Store.position = cc.v3(0,0);
             // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -750);
         }
         else {
             cc.log("máy dọc")
             // this.UI.scale = 1;
             // this.UI.position = cc.v3(0, 0);
-
+            this.camera2D.getComponent(cc.Camera).zoomRatio = 1.3;
+            // console.log(this.camera2D.getComponent(cc.Camera).zoomRatio)
             this.UI.getChildByName("PlayerUI").scale = 1;
+            this.UI.getChildByName("PlayerUI").getChildByName("Health").scale = 0.75;
+            this.UI.getChildByName("PlayerUI").getChildByName("Star").scale = 0.75;
             this.UI.getChildByName("Left").scale = 1.1;
             this.UI.getChildByName("Right").scale = 1.1;
             this.UI.getChildByName("Jump").scale = 1.1;
             this.UI.getChildByName("tut_hand").scale = 1.3;
+            this.Store.getChildByName("dinosaur").scale = 0.6;
+            cc.tween( this.Store.getChildByName("tut_hand"))
+                .to(0, {scale: 1.1}, {easing: "fade"})
+                .repeatForever(
+                    cc.tween()
+                    .to(1, {scale: 1.3}, {easing: "fade"})
+                    .to(1, {scale: 1.1}, {easing: "fade"})
+                ).start();
+            // this.UI.getChildByName("PlayerUI").getChildByName("Health").scale = 1;
+            // this.UI.getChildByName("PlayerUI").getChildByName("Star").scale = 1;
+            
+
             if (this.lose === true) {
                 cc.tween(this.UI.getChildByName("Lose"))
                 .to(1, {scale: 1}, {easing: "backOut"})
@@ -180,13 +208,13 @@ export default class GameManager extends cc.Component {
                 // this.UI.getChildByName("Lose").scale = 1;
             }
             
- 
+
             this.UI.getChildByName("PlayerUI").position = cc.v3(0, 100);
-            this.UI.getChildByName("PlayerUI").getChildByName("Health").position = cc.v3(0, 520);
-            this.UI.getChildByName("PlayerUI").getChildByName("Star").position = cc.v3(0, 400);
-            this.UI.getChildByName("left").position = cc.v3(-546.366, -785.431);
-            this.UI.getChildByName("right").position = cc.v3(-287.437, -784.753);
-            this.UI.getChildByName("up").position = cc.v3(492.213, -805.459);
+            this.UI.getChildByName("PlayerUI").getChildByName("Health").position = cc.v3(0, 620);
+            this.UI.getChildByName("PlayerUI").getChildByName("Star").position = cc.v3(0, 500);
+            this.UI.getChildByName("Left").position = cc.v3(-546.366, -785.431);
+            this.UI.getChildByName("Right").position = cc.v3(-287.437, -784.753);
+            this.UI.getChildByName("Jump").position = cc.v3(492.213, -805.459);
             this.UI.getChildByName("tut_hand").position = cc.v3(-302.783, -804.518);
          // this.UI.getChildByName("Lose").getChildByName("btn_play").position = cc.v3(0, -620);
         }
@@ -198,18 +226,18 @@ export default class GameManager extends cc.Component {
             let targetPosition = this.player.node.getPosition();
  
             //sửa khung hình giới hạn trên dưới;
-            targetPosition.y = cc.misc.clampf(targetPosition.y, 0, 720);
+            targetPosition.y = cc.misc.clampf(targetPosition.y, 0, 900);
      
             let currentPosition = this.camera2D.node.getPosition();
-            currentPosition.lerp(targetPosition, 0.5, currentPosition);
+            currentPosition.lerp(targetPosition, 1, currentPosition);
     
             this.camera2D.node.setPosition(currentPosition);
 
-            this.BG.setPosition(currentPosition.x/2, currentPosition.y/1.5);
+            this.BG.setPosition(currentPosition.x/2, currentPosition.y/3);
 
             this.UI.setPosition(currentPosition);
         }
- 
+        // this.updateCanvasSize();
         var canvasSize = cc.view.getCanvasSize();
         if (canvasSize.equals(this.currentCanvasSize) == false) {
             this.currentCanvasSize = canvasSize

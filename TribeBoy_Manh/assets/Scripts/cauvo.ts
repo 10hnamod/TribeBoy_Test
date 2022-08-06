@@ -49,10 +49,7 @@ export default class Cau extends cc.Component {
         if (self.tag === 2) {
             cc.log("Cau")
             if (window.playsound = true) {
-                cc.sequence(
-                    this.playSound(SOUND.cauVo, false),
-                    this.playSound(SOUND.cauVo1, false),
-                );
+                this.playSound(SOUND.cauVo, false),
                 GameManager.ins.intcauBum(self.node);
             }
  

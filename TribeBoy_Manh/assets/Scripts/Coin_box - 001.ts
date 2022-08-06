@@ -15,7 +15,10 @@ export default class coinBox extends cc.Component {
    
    private Self: boolean = true;
 
-    // onLoad () {}
+    onLoad () {
+        var physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
+    }
 
 
     start () {

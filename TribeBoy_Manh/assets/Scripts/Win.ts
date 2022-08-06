@@ -33,8 +33,6 @@ export default class Win extends cc.Component {
     @property(sp.Skeleton)
     dinasour: sp.Skeleton = null;
 
-   
-
     @property(cc.Camera)
     camera2D: cc.Camera = null;
 
@@ -47,7 +45,8 @@ export default class Win extends cc.Component {
         Win.ins = this;
 
         cc.director.getCollisionManager().enabled = true;
-
+        var physicsManager = cc.director.getPhysicsManager();
+        physicsManager.enabled = true;
     }
     playSound(soundId: number, loop: boolean = false, delay: number = 0){
         this.scheduleOnce(()=>{
@@ -57,20 +56,28 @@ export default class Win extends cc.Component {
 
     onCollisionEnter (other, self) {
         if (self.tag === 6) { 
+           
             cc.log("Player bat dau di gap Dinasour");
            
-            Player.ins.node.position = cc.v3(7000, -636);
-            Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "run", true);
+            // Player.ins.node.position = cc.v3(7000, -636);
+
+            Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "run", true); 
+            Player.ins.checkMove = false;
+            GameManager.ins.UI.getChildByName("Jump").active = false;
+
             cc.tween(Player.ins.node)
-            .by(4,{x: 1650}, {easing: "smooth"})
+            .by(4,{x: 1800}, {easing: "smooth"})
             .start();
             
         }
         if (self.tag === 7) {
+
+            Player.ins.goingRight = false;
+
             if (window.playsound = true){
                 this.playSound(SOUND.WIN, false)
             }
-            Player.ins.node.position = cc.v3(8000, -636);
+            // Player.ins.node.position = cc.v3(8000, -636);
             // Player.ins.node.scale = 0.5;
             Player.ins.node.getComponent(sp.Skeleton).setAnimation(5, "idle", true);
 
@@ -78,14 +85,14 @@ export default class Win extends cc.Component {
 
             cc.tween(GameManager.ins.camera2D.node)
             .to(1, {position: 
-                cc.v3(GameManager.ins.camera2D.node.position.x + 500,GameManager.ins.camera2D.node.position.y)})
+                cc.v3(GameManager.ins.camera2D.node.position.x + 500, GameManager.ins.camera2D.node.position.y)})
             .start();
 
             GameManager.ins.player.node.getPosition()
             
             GameManager.ins.node.getChildByName("Shadow").active = true;
 
-            GameManager.ins.node.getChildByName("Store").getChildByName("dinosaur").scale = 0.75;
+            // GameManager.ins.node.getChildByName("Store").getChildByName("dinosaur").scale = 0.75;
 
             GameManager.ins.node.getChildByName("Store").getChildByName("Tap to ride").active = true;
             // cc.tween(this.Label)
@@ -97,13 +104,13 @@ export default class Win extends cc.Component {
             //     ).start();
 
             GameManager.ins.node.getChildByName("Store").getChildByName("tut_hand").active = true;
-            cc.tween(this.Tap)
-                .to(0, {scale: 1.5}, {easing: "fade"})
-                .repeatForever(
-                    cc.tween()
-                    .to(1, {scale: 1.7}, {easing: "fade"})
-                    .to(1, {scale: 1.5}, {easing: "fade"})
-                ).start();
+            // cc.tween(this.Tap)
+            //     .to(0, {scale: 1.5}, {easing: "fade"})
+            //     .repeatForever(
+            //         cc.tween()
+            //         .to(1, {scale: 1.7}, {easing: "fade"})
+            //         .to(1, {scale: 1.5}, {easing: "fade"})
+            //     ).start();
 
             // GameManager.ins.node.getChildByName("Store").getChildByName("muiten").active = true;
            
