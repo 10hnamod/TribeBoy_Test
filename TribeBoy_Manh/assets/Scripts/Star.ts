@@ -29,7 +29,7 @@ export default class Star extends cc.Component {
     }
  
     onCollisionEnter (other, self) {
-        if (other.node.name === "Player" && self.tag === 5) {
+        if (other.node.name === "Player") {
             if (window.playsound = true) {
                 this.playSound(SOUND.STAR, false)
             }

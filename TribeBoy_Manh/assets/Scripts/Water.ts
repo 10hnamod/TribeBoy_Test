@@ -1,4 +1,5 @@
-
+import GameManager from "./Game_Manager";
+import Player from "./Player";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -6,8 +7,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import GameManager from "./Game_Manager";
-import Player from "./Player";
+
 
 const {ccclass, property} = cc._decorator;
 enum SOUND {
@@ -28,9 +28,6 @@ export default class water extends cc.Component {
  
     @property(cc.Float)
     duration: number = 0;
- 
-    @property(cc.Node)
-    Water: number = 0;
 
     public static ins: water;
 

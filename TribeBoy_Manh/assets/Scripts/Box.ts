@@ -1,5 +1,4 @@
-import Player from "./Player";
-import GameManager from "./Game_Manager";
+
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -29,7 +28,7 @@ export default class Box extends cc.Component {
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getCollisionManager().enabled = true;
-        Box.ins = this;
+        // Box.ins = this;
  
     }
     playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {

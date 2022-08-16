@@ -1,5 +1,5 @@
 import GameManager from "./Game_Manager";
-import Player from "./Player";
+// import Player from "./Player";
 const {ccclass, property} = cc._decorator;
 enum SOUND {
     COIN

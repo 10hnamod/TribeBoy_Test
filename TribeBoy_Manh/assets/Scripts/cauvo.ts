@@ -1,5 +1,5 @@
-import Player from "./Player";
-import GameManager from "./Game_Manager";
+// import Player from "./Player";
+// import GameManager from "./Game_Manager";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -11,7 +11,6 @@ const {ccclass, property} = cc._decorator;
 
 enum SOUND {
     cauVo,
-    cauVo1,
 }
  
 @ccclass
@@ -20,7 +19,7 @@ export default class Cau extends cc.Component {
     @property(cc.AudioClip)
     sounds: cc.AudioClip[] = [];
 
-    public static ins: Cau;
+    // public static ins: Cau;
  
     onLoad () {
         
@@ -30,7 +29,7 @@ export default class Cau extends cc.Component {
         let collisionManager = cc.director.getCollisionManager();
         collisionManager.enabled = true;
 
-        Cau.ins = this;
+        // Cau.ins = this;
  
     }
     playSound(soundId: number, loop: boolean = false, delay: number = 0 ) {
@@ -40,8 +39,6 @@ export default class Cau extends cc.Component {
             }, delay);
         }
     }
-
- 
  
     onCollisionEnter (other, self) {
         cc.log(self.tag)
@@ -49,8 +46,8 @@ export default class Cau extends cc.Component {
         if (self.tag === 2) {
             cc.log("Cau")
             if (window.playsound = true) {
-                this.playSound(SOUND.cauVo, false),
-                GameManager.ins.intcauBum(self.node);
+                this.playSound(SOUND.cauVo, false);
+                // GameManager.ins.intcauBum(self.node);
             }
  
             // cc.tween(self.node)
